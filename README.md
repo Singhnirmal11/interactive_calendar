@@ -48,3 +48,7 @@ interactive-calendar/
 ├── README.md
 ├── package.json
 └── vite.config.js
+
+
+## 🎥 Demo Video
+https://www.loom.com/share/30f1763ea69f41da953e8edec8b845a8
