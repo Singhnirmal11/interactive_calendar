@@ -31,7 +31,7 @@ This project was created as part of a **Frontend Engineering Challenge** and foc
 
 
 ## 🎥 Demo Video
-https://www.loom.com/share/30f1763ea69f41da953e8edec8b845a8
+https://www.loom.com/share/ddbadc5847e74ba69d8cb46a0e9cbfd1
 
 
 ---
