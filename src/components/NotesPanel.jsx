@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 
-function NotesPanel({
-  startDate,
-  endDate,
-  onSaveNote,
-  existingNote,
-}) {
+function NotesPanel({ startDate, endDate, onSaveNote, existingNote }) {
   const [text, setText] = useState("");
 
   useEffect(() => {
@@ -20,14 +15,16 @@ function NotesPanel({
       return format(startDate, "dd MMM yyyy");
     }
 
-    return `${format(startDate, "dd MMM")} → ${format(
+    return `${format(startDate, "dd MMM yyyy")} → ${format(
       endDate,
       "dd MMM yyyy"
     )}`;
   };
 
   const handleSave = () => {
+    if (!startDate) return;
     onSaveNote(text);
+    alert("Notes saved successfully!");
   };
 
   return (
@@ -36,9 +33,7 @@ function NotesPanel({
         Notes Section
       </p>
 
-      <h3 className="text-2xl font-bold text-slate-800 mt-2">
-        Add Notes
-      </h3>
+      <h3 className="text-2xl font-bold text-slate-800 mt-2">Add Notes</h3>
 
       <p className="text-slate-600 mt-3 text-sm">
         Select a date or date range from the calendar.

@@ -36,7 +36,7 @@ function App() {
     }
   };
 
-    const handleSaveNote = (text) => {
+  const handleSaveNote = (text) => {
     const key = getRangeKey(startDate, endDate);
     if (!key) return;
 
@@ -48,25 +48,21 @@ function App() {
 
   const getCurrentNote = () => {
     const key = getRangeKey(startDate, endDate);
-    return key ? notes[key] || "" : "";
+    if (!key) return "";
+    return notes[key] || "";
   };
 
   return (
     <div className="min-h-screen bg-slate-100 py-8 px-4 md:px-8">
       <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
-        
-        <div className="relative h-64 md:h-80 overflow-hidden">
+        {/* Hero Banner */}
+        <div className="relative h-64 md:h-80 overflow-hidden bg-gradient-to-r from-blue-600 to-sky-400">
           <img
             src="/banner.jpg"
             alt="Calendar Banner"
             className="w-full h-full object-cover"
             onError={(e) => {
               e.target.style.display = "none";
-              e.target.parentElement.classList.add(
-                "bg-gradient-to-r",
-                "from-blue-600",
-                "to-sky-400"
-              );
             }}
           />
           <div className="absolute inset-0 bg-black/20" />
@@ -84,7 +80,7 @@ function App() {
           </div>
         </div>
 
-        
+        {/* Main Content */}
         <div className="p-6 md:p-10">
           <CalendarHeader
             currentMonth={currentMonth}
@@ -103,7 +99,12 @@ function App() {
             </div>
 
             <div className="lg:col-span-1">
-              <NotesPanel startDate={startDate} endDate={endDate} />
+              <NotesPanel
+                startDate={startDate}
+                endDate={endDate}
+                onSaveNote={handleSaveNote}
+                existingNote={getCurrentNote()}
+              />
             </div>
           </div>
         </div>
