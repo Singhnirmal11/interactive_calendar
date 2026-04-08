@@ -1,16 +1,50 @@
-# React + Vite
+# Interactive Calendar Component
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A polished and responsive **Interactive Calendar Component** built using **React.js**, inspired by the design of a physical wall calendar.
 
-Currently, two official plugins are available:
+This project was created as part of a **Frontend Engineering Challenge** and focuses on clean UI, intuitive date interactions, and client-side note management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 📅 Monthly calendar view
+- ⬅️➡️ Previous / Next month navigation
+- 🔵 Day range selection
+- 📝 Notes section for selected date or date range
+- 💾 Notes persistence using `localStorage`
+- 🧹 Clear selection functionality
+- 📱 Fully responsive layout (desktop + mobile)
+- 🖼️ Scenic hero banner for wall-calendar inspired UI
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+- **React.js**
+- **Vite**
+- **Tailwind CSS**
+- **date-fns**
+
+---
+
+## 📂 Project Structure
+
+```bash
+interactive-calendar/
+├── public/
+│   └── banner.jpg
+├── src/
+│   ├── components/
+│   │   ├── CalendarHeader.jsx
+│   │   ├── CalendarGrid.jsx
+│   │   ├── DayCell.jsx
+│   │   └── NotesPanel.jsx
+│   ├── utils/
+│   │   └── dateUtils.js
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── README.md
+├── package.json
+└── vite.config.js
