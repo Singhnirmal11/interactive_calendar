@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { addMonths, isBefore, startOfDay } from "date-fns";
 import CalendarHeader from "./components/CalendarHeader";
 import CalendarGrid from "./components/CalendarGrid";
@@ -9,7 +9,11 @@ function App() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [notes, setNotes] = useState({});
+
+  const [notes, setNotes] = useState(() => {
+    const savedNotes = localStorage.getItem("calendar-notes");
+    return savedNotes ? JSON.parse(savedNotes) : {};
+  });
 
   const handlePrevMonth = () => {
     setCurrentMonth((prev) => addMonths(prev, -1));
@@ -51,6 +55,10 @@ function App() {
     if (!key) return "";
     return notes[key] || "";
   };
+
+  useEffect(() => {
+    localStorage.setItem("calendar-notes", JSON.stringify(notes));
+  }, [notes]);
 
   return (
     <div className="min-h-screen bg-slate-100 py-8 px-4 md:px-8">
