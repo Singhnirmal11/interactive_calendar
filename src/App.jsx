@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { addMonths } from "date-fns";
+import { addMonths, isBefore, startOfDay } from "date-fns";
 import CalendarHeader from "./components/CalendarHeader";
 import CalendarGrid from "./components/CalendarGrid";
 import NotesPanel from "./components/NotesPanel";
 
 function App() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const handlePrevMonth = () => {
     setCurrentMonth((prev) => addMonths(prev, -1));
@@ -13,6 +15,23 @@ function App() {
 
   const handleNextMonth = () => {
     setCurrentMonth((prev) => addMonths(prev, 1));
+  };
+
+  const handleSelectDate = (selectedDay) => {
+    const clickedDate = startOfDay(selectedDay);
+
+    if (!startDate || (startDate && endDate)) {
+      setStartDate(clickedDate);
+      setEndDate(null);
+      return;
+    }
+
+    if (isBefore(clickedDate, startDate)) {
+      setStartDate(clickedDate);
+      setEndDate(startDate);
+    } else {
+      setEndDate(clickedDate);
+    }
   };
 
   return (
@@ -58,11 +77,16 @@ function App() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
             <div className="lg:col-span-2">
-              <CalendarGrid currentMonth={currentMonth} />
+              <CalendarGrid
+                currentMonth={currentMonth}
+                startDate={startDate}
+                endDate={endDate}
+                onSelectDate={handleSelectDate}
+              />
             </div>
 
             <div className="lg:col-span-1">
-              <NotesPanel />
+              <NotesPanel startDate={startDate} endDate={endDate} />
             </div>
           </div>
         </div>

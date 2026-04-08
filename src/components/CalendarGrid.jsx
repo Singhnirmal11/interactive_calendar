@@ -1,7 +1,7 @@
 import DayCell from "./DayCell";
 import { generateCalendarDays } from "../utils/dateUtils";
 
-function CalendarGrid({ currentMonth }) {
+function CalendarGrid({ currentMonth, startDate, endDate, onSelectDate }) {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const days = generateCalendarDays(currentMonth);
 
@@ -20,7 +20,14 @@ function CalendarGrid({ currentMonth }) {
 
       <div className="grid grid-cols-7 gap-3">
         {days.map((day, index) => (
-          <DayCell key={index} day={day} currentMonth={currentMonth} />
+          <DayCell
+            key={index}
+            day={day}
+            currentMonth={currentMonth}
+            startDate={startDate}
+            endDate={endDate}
+            onSelectDate={onSelectDate}
+          />
         ))}
       </div>
     </div>

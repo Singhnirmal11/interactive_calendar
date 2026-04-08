@@ -6,6 +6,8 @@ import {
   addDays,
   isSameMonth,
   format,
+  isWithinInterval,
+  isSameDay,
 } from "date-fns";
 
 export const generateCalendarDays = (currentMonth) => {
@@ -30,4 +32,23 @@ export const formatDateKey = (date) => format(date, "yyyy-MM-dd");
 
 export const isCurrentMonthDay = (date, currentMonth) => {
   return isSameMonth(date, currentMonth);
+};
+
+export const isDateInRange = (date, startDate, endDate) => {
+  if (!startDate || !endDate) return false;
+
+  return isWithinInterval(date, {
+    start: startDate,
+    end: endDate,
+  });
+};
+
+export const isStartDate = (date, startDate) => {
+  if (!startDate) return false;
+  return isSameDay(date, startDate);
+};
+
+export const isEndDate = (date, endDate) => {
+  if (!endDate) return false;
+  return isSameDay(date, endDate);
 };
