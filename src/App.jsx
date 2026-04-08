@@ -1,12 +1,23 @@
+import { useState } from "react";
+import { addMonths } from "date-fns";
 import CalendarHeader from "./components/CalendarHeader";
 import CalendarGrid from "./components/CalendarGrid";
 import NotesPanel from "./components/NotesPanel";
 
 function App() {
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  const handlePrevMonth = () => {
+    setCurrentMonth((prev) => addMonths(prev, -1));
+  };
+
+  const handleNextMonth = () => {
+    setCurrentMonth((prev) => addMonths(prev, 1));
+  };
+
   return (
     <div className="min-h-screen bg-slate-100 py-8 px-4 md:px-8">
       <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
-        
         {/* Hero Banner */}
         <div className="relative h-64 md:h-80 overflow-hidden">
           <img
@@ -39,11 +50,15 @@ function App() {
 
         {/* Main Content */}
         <div className="p-6 md:p-10">
-          <CalendarHeader />
+          <CalendarHeader
+            currentMonth={currentMonth}
+            onPrevMonth={handlePrevMonth}
+            onNextMonth={handleNextMonth}
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
             <div className="lg:col-span-2">
-              <CalendarGrid />
+              <CalendarGrid currentMonth={currentMonth} />
             </div>
 
             <div className="lg:col-span-1">
