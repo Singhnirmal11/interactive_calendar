@@ -105,9 +105,9 @@ function App() {
             <div className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-blue-50 border border-blue-200 px-4 py-2 text-sm text-blue-800 font-medium">
               <span>Selected:</span>
               <span>
-              {endDate
-                ? `${startDate.toLocaleDateString()} → ${endDate.toLocaleDateString()}`
-                : startDate.toLocaleDateString()}
+                {endDate
+                  ? `${startDate.toLocaleDateString()} → ${endDate.toLocaleDateString()}`
+                  : startDate.toLocaleDateString()}
               </span>
             </div>
           )}
@@ -128,6 +128,7 @@ function App() {
                 endDate={endDate}
                 onSaveNote={handleSaveNote}
                 existingNote={getCurrentNote()}
+                onClearSelection={handleClearSelection}
               />
             </div>
           </div>

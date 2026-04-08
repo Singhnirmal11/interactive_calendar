@@ -50,7 +50,7 @@ function NotesPanel({
 
         {startDate && (
           <button
-            onClick={onClearSelection}
+            onClick={() => onClearSelection()}
             className="text-sm px-3 py-1.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition"
           >
             Clear
