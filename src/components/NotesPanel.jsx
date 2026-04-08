@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 
-function NotesPanel({ startDate, endDate, onSaveNote, existingNote }) {
+function NotesPanel({
+  startDate,
+  endDate,
+  onSaveNote,
+  existingNote,
+  onClearSelection,
+}) {
   const [text, setText] = useState("");
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     setText(existingNote || "");
-  }, [existingNote]);
+    setSaved(false);
+  }, [existingNote, startDate, endDate]);
 
   const getLabel = () => {
     if (!startDate) return "No date selected";
@@ -24,7 +32,11 @@ function NotesPanel({ startDate, endDate, onSaveNote, existingNote }) {
   const handleSave = () => {
     if (!startDate) return;
     onSaveNote(text);
-    alert("Notes saved successfully!");
+    setSaved(true);
+
+    setTimeout(() => {
+      setSaved(false);
+    }, 2000);
   };
 
   return (
@@ -33,17 +45,29 @@ function NotesPanel({ startDate, endDate, onSaveNote, existingNote }) {
         Notes Section
       </p>
 
-      <h3 className="text-2xl font-bold text-slate-800 mt-2">Add Notes</h3>
+      <div className="flex items-center justify-between mt-2">
+        <h3 className="text-2xl font-bold text-slate-800">Add Notes</h3>
 
-      <p className="text-slate-600 mt-3 text-sm">
-        Select a date or date range from the calendar.
+        {startDate && (
+          <button
+            onClick={onClearSelection}
+            className="text-sm px-3 py-1.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition"
+          >
+            Clear
+          </button>
+        )}
+      </div>
+
+      <p className="text-slate-600 mt-3 text-sm leading-relaxed">
+        Select a date or date range from the calendar and attach notes for
+        planning, reminders, or events.
       </p>
 
       <div className="mt-6">
         <label className="block text-sm font-medium text-slate-700 mb-2">
           Selected Date / Range
         </label>
-        <div className="w-full rounded-2xl bg-white border border-slate-200 px-4 py-3 text-slate-600">
+        <div className="w-full rounded-2xl bg-white border border-slate-200 px-4 py-3 text-slate-600 font-medium">
           {getLabel()}
         </div>
       </div>
@@ -56,17 +80,29 @@ function NotesPanel({ startDate, endDate, onSaveNote, existingNote }) {
           rows="8"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Write something here..."
+          placeholder="Write your plans, reminders, or event notes here..."
           className="w-full rounded-2xl border border-slate-200 px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+          disabled={!startDate}
         />
       </div>
 
       <button
         onClick={handleSave}
-        className="mt-5 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-2xl transition"
+        disabled={!startDate}
+        className={`mt-5 w-full font-semibold py-3 rounded-2xl transition ${
+          !startDate
+            ? "bg-slate-300 text-slate-500 cursor-not-allowed"
+            : "bg-blue-600 hover:bg-blue-700 text-white"
+        }`}
       >
         Save Notes
       </button>
+
+      {saved && (
+        <p className="mt-3 text-sm text-green-600 font-medium">
+          Notes saved successfully ✓
+        </p>
+      )}
     </div>
   );
 }

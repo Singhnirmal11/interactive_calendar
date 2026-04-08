@@ -56,6 +56,11 @@ function App() {
     return notes[key] || "";
   };
 
+  const handleClearSelection = () => {
+    setStartDate(null);
+    setEndDate(null);
+  };
+
   useEffect(() => {
     localStorage.setItem("calendar-notes", JSON.stringify(notes));
   }, [notes]);
@@ -95,6 +100,17 @@ function App() {
             onPrevMonth={handlePrevMonth}
             onNextMonth={handleNextMonth}
           />
+
+          {startDate && (
+            <div className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-blue-50 border border-blue-200 px-4 py-2 text-sm text-blue-800 font-medium">
+              <span>Selected:</span>
+              <span>
+              {endDate
+                ? `${startDate.toLocaleDateString()} → ${endDate.toLocaleDateString()}`
+                : startDate.toLocaleDateString()}
+              </span>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
             <div className="lg:col-span-2">
