@@ -52,3 +52,15 @@ export const isEndDate = (date, endDate) => {
   if (!endDate) return false;
   return isSameDay(date, endDate);
 };
+
+export const getRangeKey = (startDate, endDate) => {
+  if (!startDate) return null;
+
+  const start = format(startDate, "yyyy-MM-dd");
+
+  if (!endDate) return start;
+
+  const end = format(endDate, "yyyy-MM-dd");
+
+  return `${start}_${end}`;
+};

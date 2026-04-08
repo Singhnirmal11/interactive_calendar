@@ -3,11 +3,13 @@ import { addMonths, isBefore, startOfDay } from "date-fns";
 import CalendarHeader from "./components/CalendarHeader";
 import CalendarGrid from "./components/CalendarGrid";
 import NotesPanel from "./components/NotesPanel";
+import { getRangeKey } from "./utils/dateUtils";
 
 function App() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [notes, setNotes] = useState({});
 
   const handlePrevMonth = () => {
     setCurrentMonth((prev) => addMonths(prev, -1));
@@ -34,10 +36,25 @@ function App() {
     }
   };
 
+    const handleSaveNote = (text) => {
+    const key = getRangeKey(startDate, endDate);
+    if (!key) return;
+
+    setNotes((prev) => ({
+      ...prev,
+      [key]: text,
+    }));
+  };
+
+  const getCurrentNote = () => {
+    const key = getRangeKey(startDate, endDate);
+    return key ? notes[key] || "" : "";
+  };
+
   return (
     <div className="min-h-screen bg-slate-100 py-8 px-4 md:px-8">
       <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
-        {/* Hero Banner */}
+        
         <div className="relative h-64 md:h-80 overflow-hidden">
           <img
             src="/banner.jpg"
@@ -67,7 +84,7 @@ function App() {
           </div>
         </div>
 
-        {/* Main Content */}
+        
         <div className="p-6 md:p-10">
           <CalendarHeader
             currentMonth={currentMonth}
