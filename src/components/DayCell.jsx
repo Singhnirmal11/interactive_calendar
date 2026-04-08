@@ -15,24 +15,31 @@ function DayCell({ day, currentMonth, startDate, endDate, onSelectDate }) {
   const isEnd = isEndDate(day, endDate);
 
   let classes =
-    "h-14 md:h-16 rounded-2xl border flex items-center justify-center text-sm md:text-base font-medium transition cursor-pointer";
+    "h-14 md:h-16 rounded-2xl border flex items-center justify-center text-sm md:text-base font-medium transition-all duration-200 cursor-pointer";
 
-  if (currentMonthDay) {
+  // Highest priority: Start or End date
+  if (isStart || isEnd) {
+    classes += " bg-blue-600 text-white border-blue-700 shadow-md";
+  }
+
+  // Second priority: In between selected range
+  else if (inRange) {
+    classes += " bg-blue-100 text-blue-900 border-blue-300";
+  }
+
+  // Normal current month days
+  else if (currentMonthDay) {
     classes += " bg-white border-slate-200 text-slate-700 hover:bg-blue-50";
-  } else {
+  }
+  
+  // Previous/next month faded days
+  else {
     classes += " bg-slate-100 border-slate-200 text-slate-300";
   }
 
-  if (inRange) {
-    classes += " bg-blue-100 border-blue-200 text-blue-900";
-  }
-
-  if (isStart || isEnd) {
-    classes += " bg-blue-600 text-white border-blue-700";
-  }
-
+  // Today ring only if not already selected
   if (today && !isStart && !isEnd) {
-    classes += " ring-2 ring-blue-400 font-bold";
+    classes += " ring-2 ring-blue-400";
   }
 
   return (
